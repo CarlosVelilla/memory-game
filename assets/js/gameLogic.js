@@ -1,10 +1,10 @@
-import { getRandomCheer } from "./utils/getRandomCheer.js"
 import { finishGame } from "./gameOver.js"
+import { getRandomCheer } from "./utils/getRandomCheer.js"
 
 export const evaluateMove = function(e) {
   if (document.querySelectorAll(".active").length <= 2) {
-    e.target.classList.toggle("flip")
     e.target.classList.add("active")
+    e.target.classList.toggle("flip")
   }
 
   const activeCards = document.querySelectorAll(".active")
@@ -18,34 +18,42 @@ export const evaluateMove = function(e) {
   cheerContainer.textContent = ""
 
   const equalCards = allEqual(selectedCards)
+
+  const flipCardDelay = 500
   
   if (equalCards) {
     if (selectedCards.length === 2) {
-      const equalElements = document.querySelectorAll(`[data-emoji=${selectedCards[0]}]`)
+      /* If selectedCards is < 2 but equalCards is true
+      (if there's only one card, it always will be)
+      we wait for a second card to evaluate */
+      const equalElements = document.querySelectorAll(`[data-emoji="${selectedCards[0].codePointAt(0).toString(16)}"]`)
       equalElements.forEach(element => {
         element.classList.remove("active")
         element.dataset.fullfilled = true
       })
       selectedCards = []
       const gameOver = isGameOver()
-      if (gameOver) finishGame()
+      setTimeout(() => {
+        // WE ADD A LITTLE DELAY TO DISPLAY THE ANIMATION OF THE LAST CARD TO FLIP
+        if (gameOver) finishGame()
+      }, flipCardDelay)
     }
   } else {
     const cheerMessage = getRandomCheer()
     cheerContainer.textContent = cheerMessage
-    // CLEAR EVENTLISTENERS OF CARDS
+
     setTimeout(() => {
+      // WE ADD A LITTLE DELAY FOR USER TO ACTUALLY SEE THE FLIPPED CARD
       activeCards.forEach(card => {
         card.classList.remove("active")
         card.classList.toggle("flip")
-        // RESTART EVENTLISTENERS OF CARDS
       })
-    }, 500)
+    }, flipCardDelay)
   }
 }
 
 const allEqual = function(arr) {
-  return new Set(arr).size === 1;
+  return new Set(arr).size === 1
 }
 
 const isGameOver = function() {

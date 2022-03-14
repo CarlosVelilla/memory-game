@@ -10,5 +10,5 @@ export const scores = [
   {
     name: "Andrew",
     score: 25
-  },
+  }
 ]

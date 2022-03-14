@@ -22,6 +22,12 @@
   border-radius: 5px;
 }
 
+@media (max-width: 1360px) {
+  .main-container {
+    margin-left: 0;
+  }
+}
+
 .username-container {
   display: flex;
   flex-direction: column;
@@ -51,14 +57,14 @@
   border: 2px solid black;
 }
 
-.timer {
+.game__timer {
   position: absolute;
   top: 2rem;
   right: 1rem;
 }
 
 @media (max-width: 900px) {
-  .timer {
+  .game__timer {
     position: inherit;
   }
 }

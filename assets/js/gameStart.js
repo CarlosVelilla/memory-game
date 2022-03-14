@@ -1,10 +1,10 @@
 import { handleUsername } from "./utils/handleUsername.js";
-import { evaluateMove } from "./gameLogic.js"
 import { createNewRanking } from "./utils/createNewRanking.js"
+import { evaluateMove } from "./gameLogic.js"
 
 import { cards } from "./data/cards.js"
 
-export const startGame = function() {
+export const gameStart = function() {
   document.getElementById("usernameContainer").style.display = "none"
   const gameContainer = document.getElementById("gameContainer")
   gameContainer.classList.remove("hidden-section")
@@ -18,15 +18,15 @@ export const startGame = function() {
 }
 
 const setTimer = function() {
-  let seconds = 0;
-  let timerElement = document.getElementById('timer');
+  let seconds = 0
+  let timerElement = document.getElementById('gameTimer')
 
   function incrementSeconds() {
-      seconds += 1;
-      timerElement.innerText = `Score: ${seconds} seconds`;
+      seconds += 1
+      timerElement.innerText = `Score: ${seconds} seconds`
   }
 
-  setInterval(incrementSeconds, 1000);
+  setInterval(incrementSeconds, 1000)
 }
 
 const displayCards = function() {
@@ -42,7 +42,9 @@ const displayCards = function() {
 
     const cardContainer = document.createElement("div")
     cardContainer.className = "flip-card-inner"
-    cardContainer.dataset.emoji = card
+    /* TO AVOID CHEATING SO EASILY WITH INSPECTOR
+    WE "ENCODE" A LITTLE BIT OUR CARD EMOJI */
+    cardContainer.dataset.emoji = card.codePointAt(0).toString(16)
     cardContainer.addEventListener("click", evaluateMove)
 
     const newCardElement = document.createElement("div")

@@ -21,6 +21,7 @@ export const finishGame = function() {
 
 const inscribeScore = function(username, score) {
   // ADD CURRENT SCORE AND USER TO RANKING WITH FINAL SCORE
+  // NEXT ITERATION COULD ADD HERE THE SCORE AND RANKING TO LOCALSTORAGE
   const rankingContainer = document.getElementById("currentUserScore")
   rankingContainer.remove(rankingContainer.firstChild)
   createNewRanking(username, score)

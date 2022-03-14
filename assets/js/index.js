@@ -1,6 +1,6 @@
 import { initApp } from "./initApp.js";
 import { handleUsername } from "./utils/handleUsername.js";
-import { startGame } from "./startGame.js"
+import { gameStart } from "./gameStart.js"
 
 window.onload = function() {
   initApp()
@@ -12,8 +12,7 @@ const handleStart = function(e) {
   let username = e.target.elements.usernameInput.value
   handleUsername("set", username)
 
-  startGame()
+  gameStart()
 }
 
-/* EVENT LISTENERS */
 document.getElementById("usernameForm").addEventListener("submit", handleStart)
